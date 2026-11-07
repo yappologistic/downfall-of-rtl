@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="28" fill="#111"/>
+  <!-- a crossed-out leftward arrow (RTL) -->
+  <path d="M84 40 H40 M52 28 L40 40 L52 52" stroke="#777" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M34 22 L94 58" stroke="#d11" stroke-width="9" stroke-linecap="round"/>
+  <!-- a proud rightward arrow (LTR) -->
+  <path d="M26 88 H96 M78 70 L96 88 L78 106" stroke="#fff" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

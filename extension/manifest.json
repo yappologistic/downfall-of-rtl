@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Downfall of RTL",
+  "short_name": "LTR Supremacy",
+  "version": "6.6.6",
+  "description": "An LTR plugin for the RTL plugins. Forces every website back to left-to-right. For the memes.",
+  "icons": { "16": "icons/16.png", "48": "icons/48.png", "128": "icons/128.png" },
+  "action": {
+    "default_title": "Downfall of RTL",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/16.png", "48": "icons/48.png" }
+  },
+  "permissions": ["storage", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["core.js", "background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["core.js", "content.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": { "id": "downfall-of-rtl@memes.invalid", "strict_min_version": "121.0" }
+  }
+}

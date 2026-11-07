@@ -1,0 +1,39 @@
+{
+  "name": "downfall-of-rtl",
+  "version": "6.6.6",
+  "description": "An LTR plugin for the RTL plugins. Text goes left to right. That's it.",
+  "license": "MIT",
+  "bin": {
+    "downfall": "bin/downfall.js"
+  },
+  "main": "src/core.js",
+  "files": [
+    "bin",
+    "src"
+  ],
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "node --test test/",
+    "icons": "for s in 16 48 128; do rsvg-convert -w $s -h $s extension/icons/icon.svg -o extension/icons/$s.png; done"
+  },
+  "keywords": [
+    "ltr",
+    "rtl",
+    "anti-rtl",
+    "meme",
+    "bidi",
+    "persian",
+    "farsi",
+    "browser-extension",
+    "obsidian-plugin",
+    "userscript"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yappologistic/downfall-of-rtl.git"
+  },
+  "homepage": "https://github.com/yappologistic/downfall-of-rtl"
+}

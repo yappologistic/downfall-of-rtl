@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fa">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Downfall of RTL: Live Demo</title>
+<style>
+  :root { --bg:#fafafa; --fg:#151515; --muted:#6b6b6b; --line:#e2e2e2; --card:#fff; --red:#d11; --you:#e9f0ff; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#121212; --fg:#ececec; --muted:#9a9a9a; --line:#2a2a2a; --card:#1b1b1b; --you:#1d2a44; }
+  }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.6 system-ui, sans-serif; }
+  .bar { position:sticky; top:0; z-index:2; background:var(--card); border-bottom:1px solid var(--line);
+    padding:12px 16px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .bar h1 { font-size:16px; margin:0 12px 0 0; }
+  .bar h1 span { color:var(--red); }
+  button { font:inherit; font-size:13px; padding:6px 12px; border-radius:6px; border:1px solid var(--line);
+    background:var(--bg); color:var(--fg); cursor:pointer; }
+  button.on { background:var(--fg); color:var(--bg); }
+  .score { margin-left:auto; font-variant-numeric:tabular-nums; font-size:13px; color:var(--muted); }
+  .score b { color:var(--red); font-size:18px; }
+  main { max-width:720px; margin:0 auto; padding:24px 16px 80px; }
+  .note { color:var(--muted); font-size:13px; }
+  .msg { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin:12px 0; }
+  .msg.you { background:var(--you); }
+  .who { font-size:12px; color:var(--muted); margin-bottom:4px; }
+  pre { background:#0001; padding:10px; border-radius:6px; overflow:auto; direction:ltr; }
+  textarea { width:100%; box-sizing:border-box; font:inherit; padding:10px; border-radius:8px; border:1px solid var(--line); background:var(--card); color:var(--fg); }
+</style>
+</head>
+<body>
+<div class="bar" dir="ltr">
+  <h1>Downfall of <span>RTL</span> &rarr;</h1>
+  <button data-level="off" class="on">RTL plugin wins</button>
+  <button data-level="polite">Polite</button>
+  <button data-level="spicy">Spicy</button>
+  <button data-level="nuclear">Nuclear &#9762;</button>
+  <div class="score">neutralized: <b id="score">0</b></div>
+</div>
+
+<main>
+  <p class="note" dir="ltr">This page runs a fake "RTL plugin" that behaves like the real ones: it sets <code>dir="rtl"</code>,
+    injects a Vazirmatn stylesheet, right-aligns Persian text with inline styles, sprinkles RLM marks, and
+    <b>re-applies itself every 2 seconds</b>. Pick a level and watch the counter.</p>
+
+  <div class="chat">
+    <div class="msg you"><div class="who">You</div>
+      سلام! می‌شه یه افزونه راست‌چین برای Claude بنویسی؟</div>
+    <div class="msg"><div class="who">Assistant</div>
+      البته! این هزار و یکمین افزونه راست‌چین هفته است. با فونت Vazirmatn و پشتیبانی کامل از RTL.
+      <pre><code>npm install yet-another-rtl-plugin</code></pre>
+      امیدوارم این بار متن از راست به چپ بماند.</div>
+    <div class="msg you"><div class="who">You</div>
+      ممنون! فقط یه سوال: چرا همه‌چیز دوباره چپ‌چین شده؟</div>
+    <div class="msg"><div class="who">Assistant</div>
+      Downfall of RTL. متاسفم. دیگر کاری از دست من برنمی‌آید.</div>
+  </div>
+
+  <textarea rows="3" placeholder="اینجا فارسی تایپ کنید...">اینجا فارسی تایپ کنید و ببینید چه می‌شود</textarea>
+</main>
+
+<!-- ===================== The fake RTL plugin ===================== -->
+<script>
+  (function fakeRtlPlugin() {
+    const RLM = '‏';
+    function apply() {
+      document.documentElement.setAttribute('dir', 'rtl');
+      if (!document.getElementById('fake-rtl-plugin')) {
+        const s = document.createElement('style');
+        s.id = 'fake-rtl-plugin';
+        s.textContent = `
+          .chat .msg { direction: rtl !important; unicode-bidi: plaintext; font-family: "Vazirmatn FD", Vazirmatn, Tahoma, sans-serif !important; }
+          textarea { direction: rtl !important; text-align: right !important; font-family: Vazirmatn, sans-serif; }`;
+        document.head.appendChild(s);
+      }
+      document.querySelectorAll('.msg').forEach((m) => {
+        m.setAttribute('dir', 'auto');
+        m.style.setProperty('text-align', 'right', 'important');
+        m.style.setProperty('direction', 'rtl', 'important');
+        const t = m.lastChild;
+        if (t && t.nodeType === 3 && !t.nodeValue.startsWith(RLM)) t.nodeValue = RLM + t.nodeValue;
+      });
+    }
+    apply();
+    setInterval(apply, 2000); // RTL plugins never give up. Neither do we.
+  })();
+</script>
+
+<!-- ===================== Downfall of RTL ===================== -->
+<script src="../src/core.js"></script>
+<script>
+  let engine = null;
+  const params = new URLSearchParams(location.search);
+  const level = params.get('level');
+  if (level && DownfallOfRTL.LEVELS.includes(level)) {
+    engine = DownfallOfRTL.unleash({
+      level,
+      onStats: (_, total) => { document.getElementById('score').textContent = total; },
+    });
+  }
+  document.querySelectorAll('[data-level]').forEach((b) => {
+    b.classList.toggle('on', b.dataset.level === (level || 'off'));
+    // Inline fixes can't be cleanly undone, so switching levels reloads the page.
+    b.onclick = () => { location.search = b.dataset.level === 'off' ? '' : '?level=' + b.dataset.level; };
+  });
+</script>
+</body>
+</html>

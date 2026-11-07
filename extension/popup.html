@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Downfall of RTL</title>
+  <style>
+    :root { --bg: #fff; --fg: #111; --muted: #666; --line: #e3e3e3; --red: #d11; --card: #f6f6f6; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #161616; --fg: #eee; --muted: #999; --line: #2c2c2c; --card: #202020; }
+    }
+    * { box-sizing: border-box; direction: ltr !important; }
+    body { margin: 0; width: 320px; background: var(--bg); color: var(--fg);
+      font: 13px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    header { padding: 14px 16px 10px; border-bottom: 1px solid var(--line); }
+    h1 { margin: 0; font-size: 16px; letter-spacing: -0.01em; }
+    h1 span { color: var(--red); }
+    .tag { color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .count { padding: 14px 16px; display: flex; align-items: baseline; gap: 10px; border-bottom: 1px solid var(--line); }
+    .count b { font-size: 30px; font-variant-numeric: tabular-nums; color: var(--red); }
+    .count small { color: var(--muted); }
+    fieldset { border: 0; margin: 0; padding: 10px 16px; }
+    legend { font-weight: 600; padding: 0; margin-bottom: 6px; }
+    label.lvl { display: flex; gap: 8px; padding: 7px 8px; border-radius: 6px; cursor: pointer; }
+    label.lvl:hover { background: var(--card); }
+    label.lvl div b { display: block; }
+    label.lvl div small { color: var(--muted); }
+    .mercy { margin: 4px 16px 14px; display: flex; gap: 8px; align-items: center; padding: 8px; background: var(--card); border-radius: 6px; }
+    footer { padding: 8px 16px 12px; color: var(--muted); font-size: 11px; border-top: 1px solid var(--line); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Downfall of <span>RTL</span> &rarr;</h1>
+    <div class="tag" id="tagline">Text goes left to right. That's it.</div>
+  </header>
+
+  <div class="count">
+    <b id="total">0</b>
+    <small id="host">RTL attempts neutralized on this page</small>
+  </div>
+
+  <fieldset>
+    <legend>Aggression level</legend>
+    <label class="lvl"><input type="radio" name="level" value="polite">
+      <div><b>Polite</b><small>Forces LTR direction and left alignment. Letters stay readable.</small></div></label>
+    <label class="lvl"><input type="radio" name="level" value="spicy">
+      <div><b>Spicy</b><small>Also rewrites RTL plugin stylesheets, flips RLM/RLE/RLO marks, and replaces Vazirmatn with Comic Sans.</small></div></label>
+    <label class="lvl"><input type="radio" name="level" value="nuclear">
+      <div><b>Nuclear &#9762;</b><small>bidi-override everything. Persian renders letter-by-letter, left to right, mirrored. Unreadable. Glorious.</small></div></label>
+  </fieldset>
+
+  <label class="mercy"><input type="checkbox" id="mercy"> <span>Show mercy to <b id="mercyhost">this site</b></span></label>
+
+  <footer>v6.6.6 &middot; reload the page after showing mercy to fully restore RTL</footer>
+  <script src="popup.js"></script>
+</body>
+</html>

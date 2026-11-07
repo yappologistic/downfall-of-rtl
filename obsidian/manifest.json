@@ -1,0 +1,9 @@
+{
+  "id": "downfall-of-rtl",
+  "name": "Downfall of RTL",
+  "version": "6.6.6",
+  "minAppVersion": "1.4.0",
+  "description": "An LTR plugin for your RTL plugins. Forces every note back to left-to-right. For the memes.",
+  "author": "The Downfall of RTL contributors",
+  "isDesktopOnly": false
+}
