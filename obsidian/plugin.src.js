@@ -15,7 +15,7 @@ module.exports = class DownfallOfRtlPlugin extends Plugin {
 
     this.addCommand({
       id: 'cycle-level',
-      name: 'Cycle aggression level (polite → spicy → nuclear)',
+      name: 'Cycle aggression level (polite → spicy → mirror)',
       callback: async () => {
         const L = DownfallOfRTL.LEVELS;
         this.settings.level = L[(L.indexOf(this.settings.level) + 1) % L.length];
@@ -63,10 +63,10 @@ class DownfallSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName('Aggression level')
-      .setDesc('Polite: LTR direction. Spicy: also Comic Sans instead of Vazirmatn and RTL mark flipping (outside the editor). Nuclear: every glyph left to right, mirrored.')
+      .setDesc('Polite: LTR direction. Spicy: also Comic Sans instead of Vazirmatn and RTL mark flipping (outside the editor). Mirror: every glyph left to right, mirrored.')
       .addDropdown((d) =>
         d
-          .addOptions({ polite: 'Polite', spicy: 'Spicy', nuclear: 'Nuclear ☢' })
+          .addOptions({ polite: 'Polite', spicy: 'Spicy', mirror: 'Mirror 🪞' })
           .setValue(this.plugin.settings.level)
           .onChange(async (v) => {
             this.plugin.settings.level = v;

@@ -38,9 +38,9 @@ everything those plugins made right-to-left, and put it back. Left to right. Lik
 
 ## Before / after
 
-| RTL plugin wins | Spicy | Nuclear ☢ |
+| RTL plugin wins | Spicy | Mirror 🪞 |
 |---|---|---|
-| ![before](docs/before.jpg) | ![spicy](docs/spicy.jpg) | ![nuclear](docs/nuclear.jpg) |
+| ![before](docs/before.jpg) | ![spicy](docs/spicy.jpg) | ![mirror](docs/mirror.jpg) |
 | Peace. Harmony. Vazirmatn. | Everything left-aligned and LTR. Comic Sans instead of Vazirmatn. Sentences reorder themselves in confusion. | `سلام` renders as `مالس`. Every word, mirrored. Nobody can read it. Perfectly balanced. |
 
 Try it yourself: serve the repo (`python3 -m http.server`) and open `demo/index.html`. It contains a fake
@@ -124,7 +124,7 @@ Dry run by default. `--write` commits you to the cause.
 |---|---|---|
 | **Polite** | `direction: ltr` and `text-align: left` everywhere. Kills `dir="rtl"`, `dir="auto"`, `unicode-bidi: plaintext`. | Persian is readable, but sentences that start with an English word go a bit wobbly |
 | **Spicy** *(default)* | Polite, plus: rewrites RTL plugins' `<style>` tags in place, deletes their `@font-face` rules, replaces Vazirmatn & co. with **Comic Sans**, and flips every RLM/RLE/RLO/RLI/ALM into its LTR twin. | Readable, ugly, and the plugin authors know what you did |
-| **Nuclear ☢** | Spicy, plus `unicode-bidi: bidi-override` on every element. Characters render in the order they were typed, left to right. | Each Persian word renders mirrored. It looks like Farsi in a mirror, which is how English looked to all of us on day one. |
+| **Mirror 🪞** | Spicy, plus `unicode-bidi: bidi-override` on every element. Characters render in the order they were typed, left to right. | Each Persian word renders mirrored. It looks like Farsi in a mirror, which is how English looked to all of us on day one. |
 
 ## How it works (the actually-interesting part)
 
@@ -180,9 +180,9 @@ how arms races start, and we are emotionally prepared.
 **Will someone make an RTL plugin for this repo's README?**
 Probably by Friday.
 
-**Does nuclear mode make Persian unreadable?**
-Yes. That's the feature. If you can read nuclear mode fluently, please contact us. You may be a
-mirror.
+**Does mirror mode make Persian unreadable?**
+Yes. That's the feature. If you can read mirror mode fluently, please contact us. You may be
+Leonardo da Vinci, who wrote his notebooks in mirror script and would have hated RTL plugins too.
 
 **Is this production-ready?**
 It's production-*hostile*. Do not install this on your grandmother's computer. Do install it on

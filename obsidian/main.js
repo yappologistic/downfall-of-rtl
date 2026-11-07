@@ -15,7 +15,7 @@ var DownfallOfRTL = (function () {
   'use strict';
 
   const VERSION = '6.6.6';
-  const LEVELS = ['polite', 'spicy', 'nuclear'];
+  const LEVELS = ['polite', 'spicy', 'mirror'];
   const STYLE_ID = 'downfall-of-rtl';
   const LAYER = 'downfall-of-rtl';
   const COMIC_SANS = '"Comic Sans MS", "Comic Neue", "Chalkboard SE", cursive';
@@ -129,9 +129,9 @@ var DownfallOfRTL = (function () {
 
     const rules = [
       '*, *::before, *::after { direction: ltr !important; }',
-      level === 'nuclear'
+      level === 'mirror'
         ? // Every character, in the order it was typed, left to right. Persian
-          // words render mirrored. You asked for nuclear.
+          // words render mirrored. You asked for the mirror.
           '*, *::before, *::after { unicode-bidi: bidi-override !important; }'
         : '*:not(bdo):not(bdi) { unicode-bidi: normal !important; }',
       '[dir="rtl" i], [dir="auto" i] { text-align: left !important; }',
@@ -385,7 +385,7 @@ module.exports = class DownfallOfRtlPlugin extends Plugin {
 
     this.addCommand({
       id: 'cycle-level',
-      name: 'Cycle aggression level (polite → spicy → nuclear)',
+      name: 'Cycle aggression level (polite → spicy → mirror)',
       callback: async () => {
         const L = DownfallOfRTL.LEVELS;
         this.settings.level = L[(L.indexOf(this.settings.level) + 1) % L.length];
@@ -433,10 +433,10 @@ class DownfallSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName('Aggression level')
-      .setDesc('Polite: LTR direction. Spicy: also Comic Sans instead of Vazirmatn and RTL mark flipping (outside the editor). Nuclear: every glyph left to right, mirrored.')
+      .setDesc('Polite: LTR direction. Spicy: also Comic Sans instead of Vazirmatn and RTL mark flipping (outside the editor). Mirror: every glyph left to right, mirrored.')
       .addDropdown((d) =>
         d
-          .addOptions({ polite: 'Polite', spicy: 'Spicy', nuclear: 'Nuclear ☢' })
+          .addOptions({ polite: 'Polite', spicy: 'Spicy', mirror: 'Mirror 🪞' })
           .setValue(this.plugin.settings.level)
           .onChange(async (v) => {
             this.plugin.settings.level = v;

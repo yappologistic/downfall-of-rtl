@@ -36,7 +36,7 @@ write(
 // @noframes
 // ==/UserScript==
 ${GENERATED}
-// Pick your fighter: 'polite' | 'spicy' | 'nuclear'
+// Pick your fighter: 'polite' | 'spicy' | 'mirror'
 const LEVEL = 'spicy';
 
 ${wrapped}

@@ -12,7 +12,7 @@
   'use strict';
 
   const VERSION = '6.6.6';
-  const LEVELS = ['polite', 'spicy', 'nuclear'];
+  const LEVELS = ['polite', 'spicy', 'mirror'];
   const STYLE_ID = 'downfall-of-rtl';
   const LAYER = 'downfall-of-rtl';
   const COMIC_SANS = '"Comic Sans MS", "Comic Neue", "Chalkboard SE", cursive';
@@ -126,9 +126,9 @@
 
     const rules = [
       '*, *::before, *::after { direction: ltr !important; }',
-      level === 'nuclear'
+      level === 'mirror'
         ? // Every character, in the order it was typed, left to right. Persian
-          // words render mirrored. You asked for nuclear.
+          // words render mirrored. You asked for the mirror.
           '*, *::before, *::after { unicode-bidi: bidi-override !important; }'
         : '*:not(bdo):not(bdi) { unicode-bidi: normal !important; }',
       '[dir="rtl" i], [dir="auto" i] { text-align: left !important; }',
